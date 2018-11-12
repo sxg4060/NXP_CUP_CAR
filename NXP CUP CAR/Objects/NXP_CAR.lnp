@@ -1,0 +1,14 @@
+--cpu=Cortex-M4.fp
+".\objects\uart.o"
+".\objects\camera.o"
+".\objects\dc.o"
+".\objects\servo.o"
+".\objects\test.o"
+".\objects\delay.o"
+".\objects\main.o"
+".\objects\startup_mk64f12.o"
+".\objects\system_mk64f12.o"
+--strict --scatter ".\Objects\NXP_CAR.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\NXP_CAR.map" -o .\Objects\NXP_CAR.axf

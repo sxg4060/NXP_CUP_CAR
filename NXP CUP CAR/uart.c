@@ -83,7 +83,7 @@ void uart_putchar(char ch)
 
 void uart_put(char *ptr_str){
 	/*use putchar to print string*/
-	while(ptr_str){
+	while(*ptr_str){
 		uart_putchar(*ptr_str++);
 	}
 }

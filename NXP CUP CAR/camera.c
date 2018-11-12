@@ -9,26 +9,10 @@
 #include "MK64F12.h"
 #include "uart.h"
 #include "stdio.h"
+#include "camera.h"
 
-// Default System clock value
-// period = 1/20485760  = 4.8814395e-8
-#define DEFAULT_SYSTEM_CLOCK (20485760u) 
-
-// Integration time (seconds)
-// Determines how high the camera values are
-// Don't exceed 100ms or the caps will saturate
-// Must be above 1.25 ms based on camera clk 
-//	(camera clk is the mod value set in FTM2)
-#define INTEGRATION_TIME (.0075f)
 
 // Functions defined here
-void init_FTM2(void);
-void init_GPIO(void);
-void init_PIT(void);
-void init_ADC0(void);
-void FTM2_IRQHandler(void);
-void PIT1_IRQHandler(void);
-void ADC0_IRQHandler(void);
 
 // Pixel counter for camera logic
 // Starts at -2 so that the SI pulse occurs
@@ -50,17 +34,21 @@ char str[100];
 // ADC0VAL holds the current ADC value
 uint16_t ADC0VAL;
 
+uint16_t * CAMERA_getLine(void){return line;}
+int CAMERA_getDebugcamdata(void){return debugcamdata;}
+int CAMERA_getCapcnt(void){return capcnt;}
+void CAMERA_setCapcnt(int new_capcnt){capcnt = new_capcnt;}
 
-int main(void)
+void camera_init(void)
 {
-	int i;
+	//int i;
 	
 	uart_init(); // Initialize UART
 	init_GPIO(); // For CLK and SI output on GPIO
 	init_FTM2(); // To generate CLK, SI, and trigger ADC
 	init_ADC0();
 	init_PIT();	// To trigger camera read based on integration time
-	
+	/*
 	for(;;) {
 
 		if (debugcamdata) {
@@ -82,7 +70,7 @@ int main(void)
 			}
 		}
 
-	} //for
+	} //for*/
 } //main
 
 /* ADC0 Conversion Complete ISR  */
@@ -143,6 +131,7 @@ void FTM2_IRQHandler(void){ //For FTM timer
 *		always counting, I am just enabling/disabling FTM2 
 *		interrupts to control when the line capture occurs
 */
+
 void PIT0_IRQHandler(void){
 	
 	if (debugcamdata) {
@@ -249,8 +238,8 @@ void init_GPIO(void){
 	SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK;
 	
 	// Initialize Mux configuration for Pins
-	PORTB_PCR9 = PORT_PCR_MUX(1);  
-	PORTB_PCR23 = PORT_PCR_MUX(1); 
+	PORTB_PCR9 = PORT_PCR_MUX(1);  // SI
+	PORTB_PCR23 = PORT_PCR_MUX(1); //
 	PORTB_PCR22 = PORT_PCR_MUX(1); 
 	
 	// Set Pins as output

@@ -1,0 +1,11 @@
+.\objects\test_servo.o: test_servo.c
+.\objects\test_servo.o: MK64F12.h
+.\objects\test_servo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\test_servo.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include\core_cm4.h
+.\objects\test_servo.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include\cmsis_version.h
+.\objects\test_servo.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include\cmsis_compiler.h
+.\objects\test_servo.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include\cmsis_armcc.h
+.\objects\test_servo.o: C:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.5.0\Device\Include\system_MK64F12.h
+.\objects\test_servo.o: uart.h
+.\objects\test_servo.o: servo.h
+.\objects\test_servo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
